@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>GamePlane</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style type="text/css">
+            *{
+                padding:0px;
+                margin:0px;
+            }
+            html,body{
+                width:100%;
+                height:100%;
+            }
+            #container{
+                margin-left:auto;
+                margin-right:auto;
+                width:480px;
+                height:100%;
+            }
+        </style>
+    </head>
+    <body onselectstart="return false;">
+        <div id="container"></div>
+        <script type="text/javascript" src="Game.min.js"></script>
+        <script type="text/javascript">
+            var container = document.getElementById("container");
+            var imgCount = 0;
+            var plane,small,middle,big,yellow_bullet,blue_bullet,explosion,bomb_award,bullet_award;
+
+            function getImages(){
+                plane = new Image();
+                plane.src = "images/plane.gif";
+                plane.onload = imageOnLoad;
+
+                small = new Image();
+                small.src = "images/small.gif";
+                small.onload = imageOnLoad;
+
+                middle = new Image();
+                middle.src = "images/middle.gif";
+                middle.onload = imageOnLoad;
+
+                big = new Image();
+                big.src = "images/big.gif";
+                big.onload = imageOnLoad;
+
+                yellow_bullet = new Image();
+                yellow_bullet.src = "images/yellow_bullet.gif";
+                yellow_bullet.onload = imageOnLoad;
+
+                blue_bullet = new Image();
+                blue_bullet.src = "images/blue_bullet.gif";
+                blue_bullet.onload = imageOnLoad;
+
+                explosion = new Image();
+                explosion.src = "images/explosion.png";
+                explosion.onload = imageOnLoad;
+
+                bomb_award = new Image();
+                bomb_award.src = "images/bomb_award.gif";
+                bomb_award.onload = imageOnLoad;
+
+                bullet_award = new Image();
+                bullet_award.src = "images/bullet_award.gif";
+                bullet_award.onload = imageOnLoad;
+            }
+
+            function imageOnLoad(){
+                imgCount++;
+                if(imgCount == 9){
+                    container.style.height = document.body.clientHeight+"px";
+                    var w = document.body.clientWidth;
+                    container.style.width = w <= 500 ? w+"px" : "400px";
+                    var args = {
+                        container:container,
+                        combatAircraftMaterial:plane,
+                        explosionMaterial:explosion,
+                        yellowBulletMaterial:yellow_bullet,
+                        blueBulletMaterial:blue_bullet,
+                        smallEnemyPlaneMaterial:small,
+                        middleEnemyPlaneMaterial:middle,
+                        bigEnemyPlaneMaterial:big,
+                        bombAwardMaterial:bomb_award,
+                        bulletAwardMaterial:bullet_award
+                    };
+                    Game.start(args);
+                }
+            }
+            if(window.WebSocket){
+                getImages();
+            }
+            else{
+                alert("浏览器不支持WebSocket!");
+            }
+        </script>
+    </body>
+</html>
